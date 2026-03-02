@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+*.egg
+.venv/
+venv/
+env/
+
+# Node
+node_modules/
+frontend/dist/
+
+# Data
+backend/data/raw/*
+backend/data/processed/*
+backend/data/thumbnails/*
+!backend/data/raw/.gitkeep
+!backend/data/processed/.gitkeep
+!backend/data/thumbnails/.gitkeep
+
+# YOLO weights
+*.pt
+
+# SQLite
+*.db
+
+# Preview/debug images
+backend/data/*.jpg
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

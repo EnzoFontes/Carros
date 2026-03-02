@@ -1,0 +1,650 @@
+/* Stake.com-inspired design system */
+:root {
+  /* Stake dark teal palette */
+  --bg-base: #071824;
+  --bg-primary: #0f212e;
+  --bg-secondary: #1a2c38;
+  --bg-input: #0f212e;
+  --bg-card: #213743;
+  --bg-card-hover: #2a4553;
+  --bg-elevated: #1a2c38;
+
+  /* Stake signature green */
+  --green: #00e701;
+  --green-hover: #00c900;
+  --green-dim: rgba(0, 231, 1, 0.1);
+
+  /* Supporting colors */
+  --red: #ed4163;
+  --red-dim: rgba(237, 65, 99, 0.1);
+  --blue: #1475e1;
+  --blue-dim: rgba(20, 117, 225, 0.1);
+  --gold: #ffc800;
+  --gold-dim: rgba(255, 200, 0, 0.1);
+
+  /* Text */
+  --text-primary: #ffffff;
+  --text-secondary: #b1bad3;
+  --text-muted: #557086;
+
+  /* Borders */
+  --border: #2a3c4a;
+  --border-light: #3d5564;
+
+  /* Fonts — Stake uses system sans-serif */
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", "Fira Code", monospace;
+
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-base);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+}
+
+/* ===== APP LAYOUT ===== */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ===== HEADER (Stake-style top bar) ===== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 48px;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+}
+
+.header-title span {
+  color: var(--green);
+}
+
+/* ===== BALANCE (Stake-style wallet pill) ===== */
+.balance-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--bg-secondary);
+  padding: 6px 14px;
+  border-radius: var(--radius);
+}
+
+.coin-icon {
+  color: var(--gold);
+  font-size: 11px;
+}
+
+.coin-icon.gold {
+  font-size: 14px;
+}
+
+.balance-amount {
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.refill-btn {
+  margin-left: 6px;
+  padding: 4px 10px;
+  background: var(--green);
+  color: var(--bg-base);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.refill-btn:hover {
+  background: var(--green-hover);
+}
+
+/* ===== MAIN GRID ===== */
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ===== VIDEO PLAYER ===== */
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-base);
+  overflow: hidden;
+}
+
+.video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.video-hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.hud-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 14px 16px 10px;
+  background: linear-gradient(180deg, rgba(7, 24, 36, 0.85) 0%, transparent 100%);
+}
+
+.hud-location {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.hud-count-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.hud-count {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--green);
+  line-height: 1;
+}
+
+.hud-label {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+.hud-timer {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.hud-progress-bar {
+  height: 2px;
+  background: rgba(177, 186, 211, 0.1);
+  margin: 0 16px;
+}
+
+.hud-progress-fill {
+  height: 100%;
+  background: var(--green);
+  transition: width 0.25s linear;
+}
+
+/* ===== PREVIEW AREA ===== */
+.preview-area {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-base);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4) saturate(0.8);
+}
+
+.preview-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(7, 24, 36, 0.3) 0%,
+    rgba(7, 24, 36, 0.7) 100%
+  );
+}
+
+.preview-location {
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 3px;
+}
+
+.preview-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* ===== BETTING PANEL (Stake-style sidebar) ===== */
+.betting-panel {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background: var(--bg-primary);
+  border-left: 1px solid var(--border);
+  height: 100%;
+  overflow-y: auto;
+  gap: 16px;
+}
+
+.betting-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* Bet option cards — Stake uses compact rows */
+.bet-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bet-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--bg-secondary);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.1s ease;
+  color: var(--text-primary);
+}
+
+.bet-card:hover {
+  background: var(--bg-card);
+}
+
+.bet-card.selected {
+  border-color: var(--green);
+  background: var(--green-dim);
+}
+
+.bet-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.bet-under .bet-icon { background: var(--red-dim); color: var(--red); }
+.bet-range .bet-icon { background: var(--blue-dim); color: var(--blue); }
+.bet-over .bet-icon { background: var(--green-dim); color: var(--green); }
+.bet-exact .bet-icon { background: var(--gold-dim); color: var(--gold); }
+
+.bet-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.bet-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.bet-sublabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.bet-payout {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--green);
+  background: var(--green-dim);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+/* ===== BET AMOUNT — Stake-style input area ===== */
+.bet-amount-section {
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+
+.bet-amount-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.bet-amount-value-inline {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.bet-slider {
+  width: 100%;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--bg-card);
+  border-radius: 2px;
+  outline: none;
+}
+
+.bet-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--green);
+  cursor: pointer;
+  border: none;
+}
+
+.bet-quick-amounts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.bet-quick-btn {
+  padding: 5px;
+  background: var(--bg-input);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.bet-quick-btn:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.bet-quick-btn.active {
+  background: var(--green-dim);
+  color: var(--green);
+}
+
+/* ===== PLACE BET BUTTON — Stake green CTA ===== */
+.place-bet-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--bg-base);
+  background: var(--green);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.1s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.place-bet-btn:hover:not(:disabled) {
+  background: var(--green-hover);
+}
+
+.place-bet-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ===== RESULT MODAL ===== */
+.result-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  background: rgba(7, 24, 36, 0.75);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.result-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  text-align: center;
+  min-width: 340px;
+  max-width: 400px;
+  animation: slideUp 0.25s ease-out;
+}
+
+.result-win .result-card {
+  border-color: rgba(0, 231, 1, 0.25);
+}
+
+.result-lose .result-card {
+  border-color: rgba(237, 65, 99, 0.25);
+}
+
+.result-icon {
+  font-size: 40px;
+  margin-bottom: 6px;
+}
+
+.result-title {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.result-win .result-title { color: var(--green); }
+.result-lose .result-title { color: var(--red); }
+
+.result-details {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.result-row + .result-row {
+  border-top: 1px solid var(--border);
+}
+
+.result-value {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+.payout-value {
+  color: var(--green);
+  font-size: 15px;
+}
+
+.loss-value {
+  color: var(--red);
+}
+
+.play-again-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.play-again-btn:hover {
+  background: var(--bg-card);
+}
+
+/* ===== IDLE / LOADING ===== */
+.idle-screen,
+.loading-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: var(--bg-base);
+}
+
+.start-btn {
+  padding: 14px 36px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--bg-base);
+  background: var(--green);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.1s;
+  text-transform: uppercase;
+}
+
+.start-btn:hover {
+  background: var(--green-hover);
+}
+
+.loading-text {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+.error-msg {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--red-dim);
+  border: 1px solid rgba(237, 65, 99, 0.3);
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: var(--radius);
+  z-index: 200;
+}
+
+.waiting-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: var(--bg-primary);
+  border-left: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}

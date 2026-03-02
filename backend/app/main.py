@@ -1,0 +1,39 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
+
+from app.config import PROCESSED_DIR, THUMBNAILS_DIR
+from app.database import init_db
+from app.routers import clips, game
+
+app = FastAPI(title="Rush Hour API", version="1.0.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.on_event("startup")
+def startup():
+    init_db()
+
+
+@app.get("/api/health")
+def health():
+    return {"status": "ok"}
+
+
+# API routers (registered BEFORE static mount to avoid route conflicts)
+app.include_router(clips.router, prefix="/api/clips", tags=["clips"])
+app.include_router(game.router, prefix="/api/game", tags=["game"])
+
+# Serve static files (mount LAST — they're catch-alls)
+PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+THUMBNAILS_DIR.mkdir(parents=True, exist_ok=True)
+app.mount("/thumbnails", StaticFiles(directory=str(THUMBNAILS_DIR)), name="thumbnails")
+app.mount("/videos", StaticFiles(directory=str(PROCESSED_DIR)), name="videos")
